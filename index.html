@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Portfolio</title>
+  <title>Cyberpunk Developer Portfolio</title>
   <style>
-    /* Reset */
+    /* Basic Reset */
     * {
       margin: 0;
       padding: 0;
@@ -13,18 +13,18 @@
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      color: #333;
-      background: linear-gradient(to bottom right, #f5f5f7, #e8eaf6);
+      font-family: 'Courier New', Courier, monospace;
+      color: #00ffcc;
+      background: #0d0d0d;
       overflow-x: hidden;
       scroll-behavior: smooth;
     }
 
     /* Container */
     .container {
-      width: 85%;
+      width: 90%;
+      max-width: 1100px;
       margin: auto;
-      max-width: 1000px;
       padding: 20px;
     }
 
@@ -32,113 +32,173 @@
     header {
       text-align: center;
       padding: 80px 0;
-      color: #333;
-      animation: fadeIn 1.5s ease;
+      background: linear-gradient(135deg, #0d0d0d, #000033);
+      color: #00ffcc;
+      text-shadow: 0px 0px 8px #00ffcc;
     }
 
     header h1 {
-      font-size: 3em;
+      font-size: 3.5em;
       font-weight: 700;
       margin-bottom: 10px;
+      letter-spacing: 2px;
     }
 
     header p {
-      font-size: 1.2em;
-      color: #555;
+      font-size: 1.5em;
+      color: #ff007f;
       font-weight: 300;
     }
 
-    /* About Section */
-    section {
-      padding: 50px 0;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.5s ease-out;
-    }
-
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    h2 {
-      font-size: 2em;
-      color: #333;
-      margin-bottom: 15px;
+    /* Navigation */
+    nav {
       text-align: center;
+      margin-top: 20px;
     }
 
-    /* Project Cards */
-    .project-cards {
+    nav a {
+      color: #00ffcc;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.1em;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ff007f;
+      text-shadow: 0px 0px 5px #ff007f;
+    }
+
+    /* Section Titles */
+    section h2 {
+      font-size: 2.8em;
+      color: #ff007f;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0px 0px 10px #ff007f;
+    }
+
+    /* About Section */
+    #about {
+      text-align: center;
+      padding: 60px 0;
+      background: #1a1a1d;
+    }
+
+    #about p {
+      color: #ccc;
+      font-size: 1.2em;
+      max-width: 800px;
+      margin: 0 auto;
+      text-shadow: 0px 0px 4px #00ffcc;
+    }
+
+    /* Projects Section */
+    #projects {
+      padding: 60px 0;
+      background: #0d0d0d;
+    }
+
+    .projects-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
     }
 
     .project-card {
-      background: #fff;
+      background-color: #1a1a1d;
       padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-align: center;
+      position: relative;
+      color: #00ffcc;
     }
 
     .project-card:hover {
       transform: translateY(-10px);
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
     }
 
     .project-card h3 {
-      font-size: 1.5em;
-      color: #444;
-      margin-bottom: 8px;
+      font-size: 1.7em;
+      margin-bottom: 10px;
     }
 
-    .project-card p {
-      color: #666;
-      font-size: 1em;
-      line-height: 1.6;
+    .project-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 10px;
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
     }
 
     /* Achievements Section */
+    #achievements {
+      background: #1a1a1d;
+      padding: 60px 0;
+      color: #ff007f;
+      text-align: center;
+    }
+
     #achievements ul {
       list-style-type: none;
-      text-align: center;
+      padding: 0;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     #achievements li {
-      font-size: 1.1em;
-      margin: 10px 0;
+      font-size: 1.3em;
+      color: #00ffcc;
+      margin: 20px 0;
+      position: relative;
+      padding-left: 40px;
+      text-shadow: 0px 0px 5px #00ffcc;
+    }
+
+    #achievements li::before {
+      content: "★";
+      position: absolute;
+      left: 0;
+      color: #ff007f;
+      font-size: 1.5em;
+      text-shadow: 0px 0px 6px #ff007f;
     }
 
     /* Contact Section */
-    #contact p, #contact a {
+    #contact {
+      padding: 60px 0;
+      background: #0d0d0d;
       text-align: center;
-      font-size: 1.1em;
-      color: #333;
-      margin: 5px;
-      display: block;
+    }
+
+    #contact p, #contact a {
+      font-size: 1.2em;
+      color: #00ffcc;
+      margin: 10px 0;
+    }
+
+    #contact a {
+      color: #ff007f;
+      text-decoration: none;
+      transition: color 0.3s ease;
     }
 
     #contact a:hover {
-      color: #0073e6;
-      text-decoration: underline;
+      color: #00ffcc;
+      text-shadow: 0px 0px 5px #00ffcc;
     }
 
     /* Footer */
     footer {
-      background: #333;
-      color: #f9f9f9;
       text-align: center;
-      padding: 10px 0;
+      padding: 20px 0;
+      background-color: #000033;
+      color: #00ffcc;
       font-size: 0.9em;
-      margin-top: 20px;
-    }
-
-    /* Fade-in animation for section reveal */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
     }
   </style>
 </head>
@@ -147,9 +207,15 @@
   <!-- Header Section -->
   <header>
     <div class="container">
-      <h1>Hello, I'm [Your Name]</h1>
-      <p>Innovative Software Developer | 5 Years of Experience</p>
+      <h1>[ Ekavakra ]</h1>
+      <p>Neon Coder | Digital Architect</p>
     </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
 
   <!-- About Section -->
@@ -157,7 +223,7 @@
     <div class="container">
       <h2>About Me</h2>
       <p>
-        I am a passionate software developer with expertise in creating efficient, scalable solutions in warehouse management, order management systems, marketplaces, and ERP integrations. My goal is to drive meaningful digital transformation through technology.
+        I’m a software developer with a passion for futuristic technologies, creating digital solutions that are both functional and cutting-edge. My work spans across several industries, aiming to innovate and redefine how software integrates with the digital landscape.
       </p>
     </div>
   </section>
@@ -166,14 +232,16 @@
   <section id="projects">
     <div class="container">
       <h2>Projects</h2>
-      <div class="project-cards">
+      <div class="projects-container">
         <div class="project-card">
-          <h3>Project 1: [Project Name]</h3>
-          <p>Briefly describe the project and technologies used.</p>
+          <h3>Project Neon</h3>
+          <p>A futuristic app that integrates augmented reality with real-time data visualization.</p>
+          <img src="https://via.placeholder.com/300" alt="Project Image">
         </div>
         <div class="project-card">
-          <h3>Project 2: [Project Name]</h3>
-          <p>Briefly describe the project and technologies used.</p>
+          <h3>AI Navigator</h3>
+          <p>An AI-powered navigator designed to enhance decision-making in complex environments.</p>
+          <img src="https://via.placeholder.com/300" alt="Project Image">
         </div>
       </div>
     </div>
@@ -184,9 +252,9 @@
     <div class="container">
       <h2>Achievements</h2>
       <ul>
-        <li>Led a team in successfully deploying [specific project or achievement]</li>
-        <li>Implemented innovative features in [another achievement]</li>
-        <li>Optimized processes to reduce issue rates by [percentage] within [duration]</li>
+        <li>Developed a predictive AI model for a large-scale project with 95% accuracy.</li>
+        <li>Recognized for creating a cutting-edge holographic data visualization tool.</li>
+        <li>Consistently delivered projects under budget and ahead of schedule.</li>
       </ul>
     </div>
   </section>
@@ -195,48 +263,16 @@
   <section id="contact">
     <div class="container">
       <h2>Contact Me</h2>
-      <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+      <p>Email: <a href="mailto:ekvagarrre@gmail.com">ekvagarrre@gmail.com</a></p>
       <p>LinkedIn: <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn Profile</a></p>
-      <p>GitHub: <a href="https://github.com/yourusername" target="_blank">GitHub Profile</a></p>
+      <p>GitHub: <a href="https://github.com/ekavakra" target="_blank">GitHub Profile</a></p>
     </div>
   </section>
 
   <!-- Footer Section -->
   <footer>
-    <p>&copy; 2024 [Your Name]. All rights reserved.</p>
+    <p>&copy; 2024 [ Ekavakra ]. All rights reserved.</p>
   </footer>
-
-  <!-- Smooth Scrolling and Animation Script -->
-  <script>
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-      });
-    });
-
-    // Section reveal on scroll
-    const sections = document.querySelectorAll("section");
-    const options = {
-      threshold: 0.2
-    };
-
-    const observer = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, options);
-
-    sections.forEach(section => {
-      observer.observe(section);
-    });
-  </script>
 
 </body>
 </html>
