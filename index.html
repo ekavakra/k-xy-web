@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekavakra's Chatbot</title>
+    <style>
+        /* Reset and basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* Animated Background */
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background-size: 400% 400%;
+            color: #00ffc6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            animation: gradientBackground 8s ease infinite;
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Chat container styling */
+        .chat-container {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(20, 20, 30, 0.95);
+            border: 2px solid #ff007a;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0px 0px 15px rgba(255, 0, 122, 0.8);
+            position: relative;
+        }
+
+        /* Header with Neon Glow */
+        .chat-header {
+            background: linear-gradient(135deg, #ff007a, #00ffc6);
+            color: #0e0e0e;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0px 0px 8px #ff007a, 0px 0px 8px #00ffc6;
+        }
+
+        /* Chat messages with complex styling */
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 60vh;
+            color: #d6d6d6;
+            scrollbar-width: thin;
+            scrollbar-color: #ff007a #0e0e0e;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #ff007a;
+            border-radius: 4px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 70%;
+            line-height: 1.5;
+            font-size: 1rem;
+            word-break: break-word;
+            position: relative;
+        }
+
+        /* Messages with Neon Shadows */
+        .message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #00ffc6, #0084ff);
+            color: #0f0c29;
+            border-radius: 12px 12px 0 12px;
+            padding: 10px 15px;
+            box-shadow: 0px 0px 15px rgba(0, 255, 198, 0.6);
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: linear-gradient(135deg, #302b63, #2b1e4f);
+            color: #ff007a;
+            border-radius: 12px 12px 12px 0;
+            padding: 10px 15px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 122, 0.6);
+        }
+
+        /* Chat input */
+        .chat-input {
+            display: flex;
+            align-items: center;
+            border-top: 2px solid #ff007a;
+            background: #0f0c29;
+        }
+
+        /* Emoji Picker Styling */
+        .emoji-picker {
+            position: absolute;
+            bottom: 60px;
+            background: rgba(15, 15, 40, 0.95);
+            border: 2px solid #ff007a;
+            border-radius: 10px;
+            padding: 10px;
+            display: none;
+            gap: 10px;
+            flex-wrap: wrap;
+            width: 180px;
+        }
+
+        .emoji {
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .emoji:hover {
+            transform: scale(1.2);
+            box-shadow: 0px 0px 5px #ff007a;
+        }
+
+        .chat-input input[type="text"] {
+            flex: 1;
+            padding: 15px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #00ffc6;
+            font-size: 1rem;
+        }
+
+        .chat-input input::placeholder {
+            color: #555;
+        }
+
+        /* Send Button Styling */
+        .chat-input button {
+            background: linear-gradient(135deg, #ff007a, #00ffc6);
+            color: #0e0e0e;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0px 0px 8px #ff007a;
+        }
+
+        .chat-input button:hover {
+            background: linear-gradient(135deg, #00ffc6, #ff007a);
+            box-shadow: 0px 0px 10px #00ffc6, 0px 0px 10px #ff007a;
+        }
+
+        /* Emoji Button */
+        .emoji-button {
+            background: transparent;
+            border: none;
+            color: #ff007a;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .emoji-button:hover {
+            transform: scale(1.2);
+            color: #00ffc6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">
+        Cyberpunk AI Chatbot
+    </div>
+    <div class="chat-messages" id="chatMessages">
+        <div class="message bot">Welcome to the neon realm! 🌌</div>
+    </div>
+    <div class="emoji-picker" id="emojiPicker">
+        <span class="emoji" onclick="addEmoji('🤖')">🤖</span>
+        <span class="emoji" onclick="addEmoji('🔮')">🔮</span>
+        <span class="emoji" onclick="addEmoji('🚀')">🚀</span>
+        <span class="emoji" onclick="addEmoji('💾')">💾</span>
+        <span class="emoji" onclick="addEmoji('👾')">👾</span>
+    </div>
+    <div class="chat-input">
+        <button class="emoji-button" onclick="toggleEmojiPicker()">😊</button>
+        <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        const userInput = document.getElementById("userInput");
+        const chatMessages = document.getElementById("chatMessages");
+
+        if (userInput.value.trim() === "") return;
+
+        const userMessage = document.createElement("div");
+        userMessage.className = "message user";
+        userMessage.innerText = userInput.value;
+        chatMessages.appendChild(userMessage);
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        userInput.value = "";
+
+        setTimeout(() => {
+            const botMessage = document.createElement("div");
+            botMessage.className = "message bot";
+            botMessage.innerText = "I'm here to assist you with anything you need!";
+            chatMessages.appendChild(botMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1000);
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    }
+
+    function toggleEmojiPicker() {
+        const emojiPicker = document.getElementById("emojiPicker");
+        emojiPicker.style.display = emojiPicker.style.display === "flex" ? "none" : "flex";
+    }
+
+    function addEmoji(emoji) {
+        const userInput = document.getElementById("userInput");
+        userInput.value += emoji;
+        toggleEmojiPicker();
+    }
+
+    document.addEventListener("click", function(event) {
+        const emojiPicker = document.getElementById("emojiPicker");
+        if (!emojiPicker.contains(event.target) && event.target.className !== "emoji-button") {
+            emojiPicker.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>
